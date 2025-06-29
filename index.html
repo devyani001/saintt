@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAINT - Student Association of Information Technology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+            --text: #333;
+            --text-light: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            overflow-x: hidden;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+            padding-left: 280px; /* Add padding to accommodate the sidebar */
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--primary);
+            color: white;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        
+        .logo-text span {
+            color: var(--secondary);
+        }
+        
+        .sidebar-nav {
+            padding: 1.5rem 0;
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        
+        .sidebar-nav a:hover {
+            color: var(--secondary);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-nav a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--secondary);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+        
+        .sidebar-nav a:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        /* Mobile Menu Toggle */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            z-index: 1100;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu-btn:hover {
+            background-color: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://tse4.mm.bing.net/th/id/OIP.6867c2H1NQOLbbI9VqjI4wHaEK?rs=1&pid=ImgDetMain&o=7&rm=3');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero h1 span {
+            color: var(--secondary);
+            display: inline-block;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            text-align: center;
+            min-width: 180px;
+        }
+        
+        .cta-primary {
+            background-color: var(--secondary);
+            color: white;
+            border: 2px solid var(--secondary);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
+        
+        .cta-primary:hover {
+            background-color: transparent;
+            color: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.4);
+        }
+        
+        .cta-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-secondary:hover {
+            background-color: white;
+            color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 1;
+        }
+        
+        /* About Section */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            color: var(--primary);
+            display: inline-block;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 5px;
+            background: var(--secondary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease 0.2s;
+        }
+        
+        .about-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.3rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .feature-text p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.5s;
+            position: relative;
+        }
+        
+        .about-image:hover {
+            transform: scale(1.03);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Mission Section */
+        .mission {
+            background-color: var(--primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .mission .section-title h2 {
+            color: white;
+        }
+        
+        .mission .section-title p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .mission-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.5s;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .mission-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .mission-card i {
+            font-size: 3.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            transition: transform 0.5s;
+        }
+        
+        .mission-card:hover i {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        .mission-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .mission-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        /* Achievements Section */
+        .achievements {
+            background-color: var(--light);
+        }
+        
+        .achievement-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .achievement-stats.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stat-item {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--secondary);
+            transition: height 0.5s;
+        }
+        
+        .stat-item:hover::before {
+            height: 100%;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+        
+        .achievement-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .highlight-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .highlight-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .highlight-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .highlight-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+        
+        .highlight-card:hover .highlight-image img {
+            transform: scale(1.1);
+        }
+        
+        .highlight-content {
+            padding: 1.5rem;
+        }
+        
+        .highlight-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+        
+        .highlight-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .highlight-date {
+            display: inline-block;
+            background-color: var(--light);
+            color: var(--secondary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Journey Section */
+        .journey {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .journey::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 100%;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            padding-right: calc(50% + 2rem);
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            padding-left: calc(50% + 2rem);
+            text-align: left;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s;
+        }
+        
+        .timeline-item:hover .timeline-content {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .timeline-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* Team Section */
+        .team {
+            background-color: white;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .team-members.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .member-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.5s;
+            position: relative;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member-image {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+        
+        .member-card:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(44, 62, 80, 0.9), transparent);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 1rem;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        
+        .member-card:hover .member-overlay {
+            opacity: 1;
+        }
+        
+        .member-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .member-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .member-social a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+        }
+        
+        .member-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: var(--primary);
+        }
+        
+        .member-info p {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .member-bio {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .testimonials .section-title h2 {
+            color: white;
+        }
+        
+        .testimonials .section-title p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .testimonial-slider.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .testimonial {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .testimonial.active {
+            display: block;
+        }
+        
+        .testimonial-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            position: relative;
+            font-style: italic;
+        }
+        
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.2);
+            position: absolute;
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text::before {
+            top: -20px;
+            left: -10px;
+        }
+        
+        .testimonial-text::after {
+            bottom: -60px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        
+        .author-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1.5rem;
+            border: 3px solid var(--secondary);
+        }
+        
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .author-info p {
+            color: var(--light);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .slider-dot.active {
+            background-color: var(--secondary);
+            transform: scale(1.2);
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .contact-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light);
+            color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover .contact-icon {
+            background-color: var(--secondary);
+            color: white;
+            transform: rotate(15deg);
+        }
+        
+        .contact-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .contact-details p, .contact-details a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-details a:hover {
+            color: var(--secondary);
+        }
+        
+        .contact-form {
+            background-color: var(--light);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 5rem 2rem 2rem;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-col {
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-col p {
+            color: #bdc3c7;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 1.5rem;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #2980b9;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .timeline::before {
+                left: 40px;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 100px;
+                padding-right: 0;
+                text-align: left;
+            }
+            
+            .timeline-dot {
+                left: 40px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            body {
+                padding-left: 0;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            
+            .achievement-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                min-width: 160px;
+            }
+            
+            .stat-number {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .achievement-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <img src="https://th.bing.com/th/id/OIP.y7RzUu7hGaHAJxO6ixWdcwAAAA?w=140&h=150&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="SAINT Logo">
+                <div class="logo-text">SA<span>INT</span></div>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="#mission"><i class="fas fa-bullseye"></i> Mission</a></li>
+                <li><a href="#achievements"><i class="fas fa-trophy"></i> Achievements</a></li>
+                <li><a href="#journey"><i class="fas fa-road"></i> Our Journey</a></li>
+                <li><a href="#team"><i class="fas fa-users"></i> Our Team</a></li>
+                <li><a href="#testimonials"><i class="fas fa-quote-left"></i> Testimonials</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Student Association of <span>Information Technology</span></h1>
+            <p>Empowering the next generation of IT leaders through innovation, collaboration, and excellence. Join the largest and most active IT student association in the department.</p>
+            <div class="cta-buttons">
+                <a href="#about" class="cta-button cta-primary">Explore More</a>
+                <a href="#contact" class="cta-button cta-secondary">Join Us</a>
+            </div>
+        </div>
+        <div class="scroll-down" onclick="document.querySelector('#about').scrollIntoView({ behavior: 'smooth' })">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-title">
+            <h2>About SAINT</h2>
+            <p>The premier student association dedicated to fostering technical excellence and professional growth among IT students</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>The Largest IT Student Association</h3>
+                <p>SAINT (Student Association of Information Technology) is the leading student organization in the Information Technology department, with over 500 active members and a strong alumni network spanning more than a decade.</p>
+                <p>We provide a platform for students to enhance their technical skills, develop leadership qualities, and network with industry professionals through various technical and non-technical events throughout the year.</p>
+                
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>500+ Members</h4>
+                            <p>Largest IT student community</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>30+ Events</h4>
+                            <p>Organized annually</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>50+ Awards</h4>
+                            <p>Recognized excellence</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>1000+ Alumni</h4>
+                            <p>Strong professional network</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="SAINT Team">
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section mission" id="mission">
+        <div class="section-title">
+            <h2>Our Mission</h2>
+            <p>Guiding principles that drive our association forward</p>
+        </div>
+        <div class="mission-cards">
+            <div class="mission-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Foster Innovation</h3>
+                <p>Create an environment that encourages creative thinking and technological advancement through hackathons, ideathons, and innovation challenges.</p>
+            </div>
+            <div class="mission-card">
+                <i class="fas fa-hands-helping"></i>
+                <h3>Build Community</h3>
+                <p>Develop a strong network of IT students who support each other's growth through mentorship programs and collaborative projects.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="section achievements" id="achievements">
+        <div class="section-title">
+            <h2>Our Achievements</h2>
+            <p>Celebrating our milestones and successes</p>
+        </div>
+        <div class="achievement-stats">
+            <div class="stat-item">
+                <div class="stat-number">12+</div>
+                <div class="stat-label">Years of Excellence</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">526</div>
+                <div class="stat-label">Active Members</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">Events Organized</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">58</div>
+                <div class="stat-label">Awards Won</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section class="section journey" id="journey">
+        <div class="section-title">
+            <h2>Our Journey</h2>
+            <p>Milestones that shaped our association's growth and success</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2010</div>
+                    <h3 class="timeline-title">Founding of SAINT</h3>
+                    <p class="timeline-description">SAINT was established by a group of passionate IT students with the vision to create a platform for technical and professional growth.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2013</div>
+                    <h3 class="timeline-title">First Tech Symposium</h3>
+                    <p class="timeline-description">Organized our first annual tech symposium with 200+ attendees, featuring industry leaders from top tech companies.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2016</div>
+                    <h3 class="timeline-title">National Recognition</h3>
+                    <p class="timeline-description">Won our first national award for "Best Student Chapter" at the National IT Conference, marking our arrival on the national stage.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <h3 class="timeline-title">500+ Members</h3>
+                    <p class="timeline-description">Reached the milestone of 500 active members, becoming the largest student association in the IT department.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2022</div>
+                    <h3 class="timeline-title">Hackathon Champions</h3>
+                    <p class="timeline-description">Our team won the National Collegiate Hackathon, competing against 50+ teams with an innovative AI solution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team" id="team">
+        <div class="section-title">
+            <h2>Our Team</h2>
+            <p>The passionate individuals who make SAINT possible</p>
+        </div>
+        <div class="team-members">
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="President">
+                    <div class="member-overlay">
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-info">
+                    <h3>abc</h3>
+                    <p>President</p>
+                    <p class="member-bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. A deserunt, harum adipisci dicta temporibus et.</p>
+                </div>
+            </div>
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Vice President">
+                    <div class="member-overlay">
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-info">
+                    <h3>abc</h3>
+                    <p>Vice President</p>
+                    <p class="member-bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ab qui tenetur nemo repellat corrupti!</p>
+                </div>
+            </div>
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Technical Head">
+                    <div class="member-overlay">
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-info">
+                    <h3>abc</h3>
+                    <p>Technical Head</p>
+                    <p class="member-bio">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem dolore pariatur libero quas. Delectus, quisquam.</p>
+                </div>
+            </div>
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Events Coordinator">
+                    <div class="member-overlay">
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-info">
+                    <h3>xyz</h3>
+                    <p>Events Coordinator</p>
+                    <p class="member-bio">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore eveniet quaerat mollitia eius accusamus repellat!.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+        <div class="section-title">
+            <h2>Testimonials</h2>
+            <p>What our members and partners say about us</p>
+        </div>
+        <div class="testimonial-slider">
+            <div class="testimonial active">
+                <div class="testimonial-text">
+                    Being part of SAINT transformed my college experience. The workshops and networking opportunities helped me land my dream internship at a top tech company. The skills I gained through their events were invaluable in my professional journey.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Rahul Sharma">
+                    </div>
+                    <div class="author-info">
+                        <h4>Rahul Sharma</h4>
+                        <p>Software Engineer, Google | SAINT Alumni</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    The SAINT Hackathon was the most challenging and rewarding experience of my academic career. Working with talented peers under pressure taught me more about teamwork and problem-solving than any classroom could.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Priya Patel">
+                    </div>
+                    <div class="author-info">
+                        <h4>Priya Patel</h4>
+                        <p>Winner, SAINT Hackathon 2022</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    As a faculty advisor, I've seen SAINT grow into an exceptional organization that complements our academic program perfectly. Their events bring theory to life and inspire students to push their boundaries beyond the classroom.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Dr. Amit Desai">
+                    </div>
+                    <div class="author-info">
+                        <h4>Dr. Amit Desai</h4>
+                        <p>Professor & Faculty Advisor, IT Department</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <div class="slider-dot active" data-slide="0"></div>
+                <div class="slider-dot" data-slide="1"></div>
+                <div class="slider-dot" data-slide="2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+            <p>We'd love to hear from you! Reach out for collaborations or inquiries</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Location</h3>
+                        <p>Information Technology Department<br>University Main Campus<br>City, State 123456</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <a href="mailto:contact@saint.org">contact@saint.org</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Phone</h3>
+                        <a href="tel:+1234567890">+1 (234) 567-890</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Office Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday: 10:00 AM - 2:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>About SAINT</h3>
+                <p>The Student Association of Information Technology is the premier student organization dedicated to fostering technical excellence and professional growth among IT students.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#mission">Our Mission</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                    <li><a href="#journey">Our Journey</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <li><a href="#events">Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Events</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Tech Summit</a></li>
+                    <li><a href="#">Hackathon</a></li>
+                    <li><a href="#">Workshops</a></li>
+                    <li><a href="#">Coding Competitions</a></li>
+                    <li><a href="#">Guest Lectures</a></li>
+                    <li><a href="#">Alumni Connect</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter to get updates about upcoming events and opportunities.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 SAINT - Student Association of Information Technology. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const sidebar = document.querySelector('.sidebar');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            mobileMenuBtn.innerHTML = sidebar.classList.contains('open') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth Scrolling for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Testimonial Slider
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentTestimonial = 0;
+        
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            testimonials[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentTestimonial = index;
+        }
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const slideIndex = parseInt(dot.getAttribute('data-slide'));
+                showTestimonial(slideIndex);
+            });
+        });
+        
+        // Auto slide testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+        
+        // Scroll Animation
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.section-title, .about-content, .mission-card, .achievement-stats, .highlight-card, .timeline, .team-members, .testimonial-slider, .contact-container');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
